@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script type="text/javascript" src="states.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="JSONGrid/json_grid.css">
+    <script src="JSONGrid/JSONGrid.js"></script>
+
+    <title>Vaccination Slot Finder</title>
+</head>
+<body>
+    <form id="query-form">
+        <!-- <input type="text" id="state-name" placeholder="State"> -->
+        <select name="states" id="state-list">
+
+        </select>
+        <!-- <input type="text" id="district-name" placeholder="District"> -->
+        <select name="districts" id="district-list">
+            <option value=""> -- Select District -- </option>
+        </select>
+        <input type="submit" value="Find Slots">
+    </form>
+
+    <div id="week-navigator" style="display: none;">
+        <button id="prev-week"> Previous Week </button>
+        <span id="week"></span>
+        <button id="next-week"> Next Week </button>
+    </div>
+    
+    <div id="slots">
+
+    </div>
+</body>
+
+<script src="scripts/index.js"></script>
+</html>
