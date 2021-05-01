@@ -48,11 +48,12 @@ const queryDistrictId = async (stateId, district_name) => {
 };
 
 
-const getAvailableSlots = (centers) => {
+const getAvailableSlots = (centers, is18PlusChecked) => {
     let slots = [];
     centers.forEach(center => {
         let sessions = [];
-        center.sessions.forEach(session => {
+        center_sessions = is18PlusChecked ? center.sessions.filter(session => session.min_age_limit <= 18) : center.sessions;
+        center_sessions.forEach(session => {
             if (session.available_capacity > 0) {
                 time_slots = [];
                 session.slots.forEach((time_slot, index) => {
@@ -86,7 +87,7 @@ const getAvailableSlots = (centers) => {
 /**
  * API call centers by district id and week start date
  */ 
-const querySlots = async (districtId, startDate) => {
+const querySlots = async (districtId, startDate, is18PlusChecked) => {
     let centers = null;
     const queryUrl = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=${districtId}&date=${startDate}`;
     try {
@@ -103,17 +104,17 @@ const querySlots = async (districtId, startDate) => {
         console.log(e);
     }
     
-    const availableSlots = getAvailableSlots(centers);
+    const availableSlots = getAvailableSlots(centers, is18PlusChecked);
     // console.log(queryUrl);
     
     return availableSlots; 
 };
 
 
-const displaySlots = async (districtId, startDate) => {
+const displaySlots = async (districtId, startDate, is18PlusChecked) => {
     document.getElementById("slots").innerHTML = "Please Wait...";
 
-    const slots = await querySlots(districtId, formatDate(startDate));
+    const slots = await querySlots(districtId, formatDate(startDate), is18PlusChecked);
 
     let container = document.getElementById("slots");
     let jsonGrid = new JSONGrid(slots, container);
@@ -171,12 +172,12 @@ const initializeForm = async () => {
 
 (async () => {
     initializeForm();
-
     let startDate = new Date();
     console.log(formatDate(startDate));
 
     let stateId = null;
     let districtId = null;
+    let is18PlusChecked = null;
 
     // District Dropdown list
     let stateListElement = document.getElementById("state-list");
@@ -190,8 +191,9 @@ const initializeForm = async () => {
         stateId = document.getElementById("state-list").value;
         districtId = document.getElementById("district-list").value;
         startDate = new Date();
+        is18PlusChecked = document.getElementById("age-18-45").checked;
 
-        await displaySlots(districtId, startDate);
+        await displaySlots(districtId, startDate, is18PlusChecked);
 
         document.getElementById("week-navigator").style.display = "block";
         let weekTxt = formatDate(startDate) + " - " + formatDate(addDaysToDate(startDate, 7));
@@ -201,8 +203,15 @@ const initializeForm = async () => {
     // Previous Week Button
     document.getElementById("prev-week").addEventListener("click", async (e) => {
         startDate = addDaysToDate(startDate, -7);
+        const currentDate = new Date();
+        if (startDate < currentDate) {
+            startDate = currentDate;
+        }
         console.log(startDate);
-        await displaySlots(districtId, startDate);
+        is18PlusChecked = document.getElementById("age-18-45").checked;
+
+        await displaySlots(districtId, startDate, is18PlusChecked);
+        
         let weekTxt = formatDate(startDate) + " - " + formatDate(addDaysToDate(startDate, 7));
         document.getElementById("week").innerHTML = weekTxt;
     });
@@ -211,7 +220,10 @@ const initializeForm = async () => {
     document.getElementById("next-week").addEventListener("click", async (e) => {
         startDate = addDaysToDate(startDate, 7);
         console.log(startDate);
-        await displaySlots(districtId, startDate);
+        is18PlusChecked = document.getElementById("age-18-45").checked;
+
+        await displaySlots(districtId, startDate, is18PlusChecked);
+
         let weekTxt = formatDate(startDate) + " - " + formatDate(addDaysToDate(startDate, 7));
         document.getElementById("week").innerHTML = weekTxt;
     });

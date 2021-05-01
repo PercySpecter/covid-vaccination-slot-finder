@@ -13,7 +13,8 @@
 
     <title>Vaccination Slot Finder</title>
 </head>
-<body>
+<body style="font-family: Roboto;">
+    <h2> Covid-19 Vaccination Slot Finder </h2>
     <form id="query-form">
         <!-- <input type="text" id="state-name" placeholder="State"> -->
         <select name="states" id="state-list">
@@ -23,12 +24,16 @@
         <select name="districts" id="district-list">
             <option value=""> -- Select District -- </option>
         </select>
+
+        <input type="checkbox" id="age-18-45" name="age-18-45" value="18+">
+        <label for="age-18-45"> Show only for 18+ years </label>
+
         <input type="submit" value="Find Slots">
     </form>
 
     <div id="week-navigator" style="display: none;">
         <button id="prev-week"> Previous Week </button>
-        <span id="week"></span>
+        <span id="week" style="font-family: 'Roboto Mono'; font-size: small;"></span>
         <button id="next-week"> Next Week </button>
     </div>
     
