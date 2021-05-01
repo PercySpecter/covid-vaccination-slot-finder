@@ -112,15 +112,20 @@ const querySlots = async (districtId, startDate, is18PlusChecked) => {
 
 
 const displaySlots = async (districtId, startDate, is18PlusChecked) => {
-    document.getElementById("slots").innerHTML = "Please Wait...";
+    let container = document.getElementById("slots");
+
+    container.innerHTML = `<span style="font-family: 'Roboto Mono'; font-size: large;">Please Wait...</span>`;
 
     const slots = await querySlots(districtId, formatDate(startDate), is18PlusChecked);
 
-    let container = document.getElementById("slots");
-    let jsonGrid = new JSONGrid(slots, container);
-    jsonGrid.render();
+    if (slots.length == 0) {
+        container.innerHTML = `<span style="font-family: 'Roboto Mono'; font-size: large; color: red;">No Slots Available!</span>`;
+    } else {
+        let jsonGrid = new JSONGrid(slots, container);
+        jsonGrid.render();
 
-    // document.getElementById("slots").innerHTML = JSON.stringify(slots);
+        // document.getElementById("slots").innerHTML = JSON.stringify(slots);
+    }
 };
 
 
