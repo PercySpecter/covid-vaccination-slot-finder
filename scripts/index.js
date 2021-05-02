@@ -201,7 +201,7 @@ const initializeForm = async () => {
         await displaySlots(districtId, startDate, is18PlusChecked);
 
         document.getElementById("week-navigator").style.display = "flex";
-        let weekTxt = formatDate(startDate) + " - " + formatDate(addDaysToDate(startDate, 7));
+        let weekTxt = formatDate(startDate) + " - " + formatDate(addDaysToDate(startDate, 6));
         document.getElementById("week").innerHTML = weekTxt;
     });
 
@@ -217,7 +217,7 @@ const initializeForm = async () => {
 
         await displaySlots(districtId, startDate, is18PlusChecked);
         
-        let weekTxt = formatDate(startDate) + " - " + formatDate(addDaysToDate(startDate, 7));
+        let weekTxt = formatDate(startDate) + " - " + formatDate(addDaysToDate(startDate, 6));
         document.getElementById("week").innerHTML = weekTxt;
     });
 
@@ -229,7 +229,7 @@ const initializeForm = async () => {
 
         await displaySlots(districtId, startDate, is18PlusChecked);
 
-        let weekTxt = formatDate(startDate) + " - " + formatDate(addDaysToDate(startDate, 7));
+        let weekTxt = formatDate(startDate) + " - " + formatDate(addDaysToDate(startDate, 6));
         document.getElementById("week").innerHTML = weekTxt;
     });
 })();
