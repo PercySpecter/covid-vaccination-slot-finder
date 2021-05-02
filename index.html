@@ -5,40 +5,71 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script type="text/javascript" src="states.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="JSONGrid/json_grid.css">
     <script src="JSONGrid/JSONGrid.js"></script>
 
+    <script type="text/javascript" src="states.js"></script>
+
     <title>Vaccination Slot Finder</title>
 </head>
 <body style="font-family: Roboto;">
-    <h2> Covid-19 Vaccination Slot Finder </h2>
-    <form id="query-form">
-        <!-- <input type="text" id="state-name" placeholder="State"> -->
-        <select name="states" id="state-list">
+    <div class="container-fluid">
+        <div class="row content bg-info">
+            <h1 class="mx-auto my-2 text-center text-light"> Covid-19 Vaccination Slot Finder </h1>
+        </div>
 
-        </select>
-        <!-- <input type="text" id="district-name" placeholder="District"> -->
-        <select name="districts" id="district-list">
-            <option value=""> -- Select District -- </option>
-        </select>
-
-        <input type="checkbox" id="age-18-45" name="age-18-45" value="18+">
-        <label for="age-18-45"> Show only for 18+ years </label>
-
-        <input type="submit" value="Find Slots">
-    </form>
-
-    <div id="week-navigator" style="display: none;">
-        <button id="prev-week"> Previous Week </button>
-        <span id="week" style="font-family: 'Roboto Mono'; font-size: small;"></span>
-        <button id="next-week"> Next Week </button>
-    </div>
+        <form id="query-form" class="row content my-2">
+            <!-- <input type="text" id="state-name" placeholder="State"> -->
+            <div class="form-group col-sm-3 my-auto py-2">
+                <select class="form-control" name="states" id="state-list">
     
-    <div id="slots">
+                </select>
+            </div>
+            
+            <!-- <input type="text" id="district-name" placeholder="District"> -->
+            <div class="form-group col-sm-3 my-auto py-2">
+                <select class="form-control" name="districts" id="district-list">
+                
+                </select>
+            </div>
+            
+            <div class="custom-control custom-switch col-sm-2 mx-3 my-auto py-2">
+                <input class="custom-control-input" type="checkbox" id="age-18-45" name="age-18-45" value="18+">
+                <label class="custom-control-label" for="age-18-45"> Show only for 18+ years </label>
+            </div>
+            
+            <div class="col-sm-3 my-auto py-2">
+                <button class="form-control btn btn-success" type="submit"> Find Slots </button>
+            </div>
+        </form>
 
+        <div id="week-navigator" class="row content my-5 text-center" style="display: none;">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2 my-auto py-1 text-center">
+                <button class="btn btn-info btn-block" id="prev-week"> Previous Week </button>
+            </div>
+            
+            <div class="col-sm-6 my-auto py-1 text-center">
+                <span>Date Range: </span>
+                <span id="week"></span>
+            </div>
+            
+            <div class="col-sm-2 my-auto py-1 text-center">
+                <button class="btn btn-info btn-block" id="next-week"> Next Week </button>
+            </div>
+            <div class="col-sm-1"></div>
+
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10" id="slots">
+    
+            </div>
+        </div>
     </div>
 </body>
 

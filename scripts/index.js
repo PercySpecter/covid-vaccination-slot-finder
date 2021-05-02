@@ -200,7 +200,7 @@ const initializeForm = async () => {
 
         await displaySlots(districtId, startDate, is18PlusChecked);
 
-        document.getElementById("week-navigator").style.display = "block";
+        document.getElementById("week-navigator").style.display = "flex";
         let weekTxt = formatDate(startDate) + " - " + formatDate(addDaysToDate(startDate, 7));
         document.getElementById("week").innerHTML = weekTxt;
     });
